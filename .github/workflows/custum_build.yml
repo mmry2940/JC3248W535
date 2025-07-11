@@ -102,13 +102,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
       - name: Install ESP-IDF
         run: |
           sudo apt-get update
           sudo apt-get install -y wget git flex bison gperf python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util
-          git clone -b v5.3.1 --depth 1 https://github.com/espressif/esp-idf.git ~/esp-idf
+          git clone --depth 1 https://github.com/espressif/esp-idf.git ~/esp-idf
           ~/esp-idf/install.sh
 
       - name: Generate Custom SDK Config
@@ -171,6 +171,7 @@ jobs:
           if [ "${{ github.event.inputs.use_touch }}" == "true" ] || \
              [ "${{ github.event.inputs.display_type }}" == "ESP32-S3-Cardputer" ] || \
              [ "${{ github.event.inputs.display_type }}" == "LillyGoTWatch_S3" ] || \
+             [ "${{ github.event.inputs.display_type }}" == "JC3248W535EN" ] || \
              [[ "${{ github.event.inputs.display_type }}" == CYD* ]]; then
             echo "CONFIG_USE_TOUCHSCREEN=y" >> sdkconfig.defaults
           fi
@@ -221,6 +222,7 @@ jobs:
             if [ "${{ github.event.inputs.use_touch }}" == "true" ] || \
                [ "${{ github.event.inputs.display_type }}" == "ESP32-S3-Cardputer" ] || \
                [ "${{ github.event.inputs.display_type }}" == "LillyGoTWatch_S3" ] || \
+               [ "${{ github.event.inputs.display_type }}" == "JC3248W535EN" ] || \
                [[ "${{ github.event.inputs.display_type }}" == CYD* ]]; then
               echo "Yes"
             else
